@@ -21,6 +21,7 @@ from src.utils.image_helpers import to_float, to_uint8, rgb_to_gray, ensure_gray
 from src.utils.validation import validate_image, get_image_info
 from src.degradation.gaussian_noise import add_gaussian_noise
 from src.degradation.salt_pepper import add_salt_and_pepper_noise
+from src.degradation.gaussian_blur import apply_gaussian_blur
 from src.spatial.gaussian_filter import create_gaussian_kernel, apply_gaussian_filter
 from src.degradation.motion_blur import create_motion_blur_kernel, apply_motion_blur
 from src.spatial.mean_filter import apply_mean_filter
@@ -306,7 +307,12 @@ with tab_studio:
 
         else:  # Direct Inverse Filter
             st.caption("Theoretical test: Inverse filtering divides frequency response by H(u, v).")
-            psf_use = psf_motion if deg_mode == "Directional Motion Blur" else create_gaussian_kernel(kernel_size=5, sigma=1.0)
+            if deg_mode == "Directional Motion Blur":
+                psf_use = psf_motion
+            elif deg_mode == "Gaussian Optical Defocus Blur":
+                psf_use = psf_gauss
+            else:
+                psf_use = create_gaussian_kernel(kernel_size=5, sigma=1.0)
             restored_img, elapsed_ms = time_function(apply_inverse_filter, degraded_img, psf_use, threshold=None)
 
     with col_exec:
