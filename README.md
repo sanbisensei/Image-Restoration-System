@@ -150,30 +150,57 @@ ImageRestorationSystem/
 
 ---
 
-## 4. Installation & Setup
+## 4. Installation & Setup (How to Clone & Run)
 
-1. **Prerequisites:** Python 3.11+ installed.
-2. **Clone / Navigate to directory:**
-   ```powershell
-   cd c:\Projects\ImageRestorationSystem
-   ```
-3. **Activate Virtual Environment:**
-   ```powershell
-   .\.venv\Scripts\Activate.ps1
-   ```
-4. **Install Dependencies:**
-   ```powershell
-   pip install -r requirements.txt
-   ```
+### Prerequisites
+- Python 3.10, 3.11, or 3.12
+- Git
+
+### Step 1: Clone the Repository
+```bash
+git clone https://github.com/<YOUR-USERNAME>/ImageRestorationSystem.git
+cd ImageRestorationSystem
+```
+
+### Step 2: Create a Virtual Environment
+- **Windows (PowerShell / Command Prompt):**
+  ```powershell
+  python -m venv .venv
+  ```
+- **macOS / Linux (Terminal):**
+  ```bash
+  python3 -m venv .venv
+  ```
+
+### Step 3: Activate Virtual Environment
+- **Windows (PowerShell):**
+  ```powershell
+  .\.venv\Scripts\Activate.ps1
+  ```
+  *(If script execution is blocked on Windows, run once: `Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass`)*
+- **Windows (Command Prompt):**
+  ```cmd
+  .\.venv\Scripts\activate.bat
+  ```
+- **macOS / Linux:**
+  ```bash
+  source .venv/bin/activate
+  ```
+
+### Step 4: Install Dependencies
+```bash
+pip install -r requirements.txt
+```
 
 ---
 
 ## 5. Running the Application & Demos
 
 ### A. Launch Interactive Streamlit Web App
-```powershell
-.\.venv\Scripts\streamlit run app.py
+```bash
+streamlit run app.py
 ```
+*(Or `python -m streamlit run app.py`). Open `http://localhost:8501` in your browser.*
 Open `http://localhost:8501` in your browser. The app includes:
 1. Overview & Architecture
 2. Image Degradation Simulator

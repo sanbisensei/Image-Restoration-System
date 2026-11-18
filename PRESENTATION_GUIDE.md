@@ -1,6 +1,56 @@
 # CSE 438: Digital Image Processing — Final Project Guide
 ## "Image Restoration & Deblurring System"
-*A plain-English, step-by-step presentation guide for you and your teammates.*
+*A plain-English, step-by-step presentation and setup guide for you and your teammates.*
+
+---
+
+## 0. How Your Teammates Can Clone & Run This on Their Computer
+
+If you push this project to GitHub, your friends can set it up on their own laptops (Windows, Mac, or Linux) in under 3 minutes:
+
+### Step 1: Clone the Repository
+```bash
+git clone https://github.com/<YOUR-GITHUB-USERNAME>/ImageRestorationSystem.git
+cd ImageRestorationSystem
+```
+
+### Step 2: Create a Virtual Environment
+- **On Windows (PowerShell or CMD):**
+  ```powershell
+  python -m venv .venv
+  ```
+- **On Mac / Linux (Terminal):**
+  ```bash
+  python3 -m venv .venv
+  ```
+
+### Step 3: Activate the Virtual Environment
+- **On Windows PowerShell:**
+  ```powershell
+  .\.venv\Scripts\Activate.ps1
+  ```
+  *(Note: If Windows says "running scripts is disabled", run `Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass` once in PowerShell, or use Command Prompt: `.\.venv\Scripts\activate.bat`)*
+- **On Mac / Linux:**
+  ```bash
+  source .venv/bin/activate
+  ```
+
+### Step 4: Install Dependencies
+```bash
+pip install -r requirements.txt
+```
+
+### Step 5: Launch the Web App!
+```bash
+streamlit run app.py
+```
+*Your browser will automatically open `http://localhost:8501`.*
+
+### Step 6: Run Tests to Verify Everything Works
+```bash
+pytest tests/ -v
+```
+*(All 77 unit tests should pass with green checks).*
 
 ---
 
@@ -43,7 +93,49 @@
 
 ---
 
-## 4. Tomorrow's Demonstration Script (Step-by-Step)
+## 4. What Do the Numbers in "Quantitative Quality Evaluation" Mean?
+
+When you run a restoration in the studio, you see a row of metric cards:
+```
+Restored PSNR:   28.77 dB  (+13.50 dB)
+Restored SSIM:   0.9922    (+0.5714)
+CPU Latency:     10.50 ms
+```
+
+Here is exactly what to tell your teacher:
+
+### 1. Restored PSNR: 28.77 dB
+- **Stands for:** Peak Signal-to-Noise Ratio (measured in decibels, dB).
+- **In simple words:** It measures how strong the clean image signal is compared to the corrupting noise.
+- **How to read the score:**
+  - Below 20 dB: Very noisy / poor quality.
+  - 25 to 30 dB: Good, clear restoration.
+  - Above 30 dB: Excellent (almost identical to original).
+  - **28.77 dB** proves the filter successfully removed almost all noise.
+
+### 2. +13.50 dB (The Green Delta / Improvement)
+- **What it means:** This is the **quality boost**: $\Delta\text{PSNR} = \text{PSNR}_{\text{restored}} - \text{PSNR}_{\text{degraded}}$.
+- Before filtering, the noisy image had a terrible PSNR of only $15.27\text{ dB}$.
+- Your filter increased the signal quality by **$+13.50\text{ dB}$**.
+- *Viva tip to impress the professor:* In decibels (a logarithmic scale), every $+3\text{ dB}$ cut the noise power in half. A $+13.5\text{ dB}$ boost means you reduced the noise power by more than **$20\times$**!
+
+### 3. Restored SSIM: 0.9922
+- **Stands for:** Structural Similarity Index Measure.
+- **In simple words:** While PSNR only looks at raw pixel math, SSIM models how the **human eye** sees edges, contrast, and shapes.
+- **Scale:** Ranges from $0.0$ to $1.0$ (where $1.0 = 100\%$ perfect identical match).
+- **0.9922** means your restored image has a **99.2% structural match** with the original clean image. Edges and textures were preserved almost perfectly.
+
+### 4. +0.5714 (The Green Delta / Improvement)
+- **What it means:** The noisy image had an SSIM of only $0.42$ ($42\%$ match—a noisy mess).
+- Your filter boosted human visual similarity by **$+57.1\%$** (from $0.42$ up to $0.992$).
+
+### 5. CPU Latency: 10.50 ms
+- **Stands for:** The exact execution time in milliseconds ($10.5\text{ ms} = 0.0105\text{ seconds}$) measured on your CPU.
+- **Why faculty care:** In computer engineering, an algorithm is useless if it takes 5 minutes to run. Running in $10.5\text{ ms}$ proves your algorithm is fast enough for **real-time 90+ FPS video processing** and runs efficiently without needing an expensive GPU.
+
+---
+
+## 5. Tomorrow's Demonstration Script (Step-by-Step)
 
 Follow this exact 3-minute sequence when presenting to your teacher:
 
@@ -91,7 +183,7 @@ Show that **all 77 tests pass** in ~3 seconds, verifying custom 2D convolution, 
 
 ---
 
-## 5. Summary Table for Quick Reference
+## 6. Summary Table for Quick Reference
 
 | Degradation | Best Classical Fix | Metric Improvement | Key Viva Phrase to Remember |
 | :--- | :--- | :--- | :--- |
