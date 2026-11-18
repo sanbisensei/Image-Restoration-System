@@ -158,7 +158,7 @@ ImageRestorationSystem/
 
 ### Step 1: Clone the Repository
 ```bash
-git clone https://github.com/<YOUR-USERNAME>/ImageRestorationSystem.git
+git clone https://github.com/sanbisensei/ImageRestorationSystem.git
 cd ImageRestorationSystem
 ```
 
